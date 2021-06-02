@@ -1,2 +1,2 @@
 # DeepDinoRun
-No internet? No Problem! Making a deep neural network learn how to play Chrome's Dino Game!
+No internet? No Problem! We will teach a deep neural network to play Chrome's Dino Game!
