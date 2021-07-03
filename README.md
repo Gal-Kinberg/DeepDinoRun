@@ -23,28 +23,25 @@ The idea of this algorithm i
 ## Prerequisites
 |Library         | Version |
 |----------------------|----|
-|`Python`|  `3.5`|
-|`torch`|  `1.9.0+cu102`|
+|`Python`|  `3.7`|
+|`torch`|  `1.9.0`|
 |`selenium`|  `3.141.0`|
+|`Pillow`|  `8.3.0`|
+|`torchvision`|  `0.10.0`|
+|`matploitlib`|  `3.4.2`|
 
 ## Files in the repository
 
 |File name         | Purpsoe |
 |----------------------|------|
-|`ls_dqn_main.py`| general purpose main application for training/playing a LS-DQN agent|
-|`pong_ls_dqn.py`| main application tailored for Atari's Pong|
-|`boxing_ls_dqn.py`| main application tailored for Atari's Boxing|
-|`dqn_play.py`| sample code for playing a game, also in `ls_dqn_main.py`|
-|`actions.py`| classes for actions selection (argmax, epsilon greedy)|
-|`agent.py`| agent class, holds the network, action selector and current state|
+|`DeepDino.py`| general purpose main application for training/playing a LS-DQN agent|
+|`dqn_model.py`| main application tailored for Atari's Pong|
+|`game.py`| main application tailored for Atari's Boxing|
+|`game_state.py`| sample code for playing a game, also in `ls_dqn_main.py`|
+|`config.py`| classes for actions selection (argmax, epsilon greedy)|
+|`dino_agent.py`| agent class, holds the network, action selector and current state|
 |`dqn_model.py`| DQN classes, neural networks structures|
-|`experience.py`| Replay Buffer classes|
-|`hyperparameters.py`| hyperparameters for several Atari games, used as a baseline|
-|`srl_algorithms.py`| Shallow RL algorithms, LS-UPDATE|
-|`utils.py`| utility functions|
-|`wrappers.py`| DeepMind's wrappers for the Atari environments|
 |`*.pth`| Checkpoint files for the Agents (playing/continual learning)|
-|`Deep_RL_Shallow_Updates_for_Deep_Reinforcement_Learning.pdf`| Writeup - theory and results|
 
 ## References
 * 
