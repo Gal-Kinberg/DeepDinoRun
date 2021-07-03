@@ -7,7 +7,7 @@ Based on the paper:
 Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou,
 Daan Wierstra, Martin Riedmiller [Playing Atari with Deep Reinforcement Learning](https://arxiv.org/pdf/1312.5602.pdf), NIPS 2013
 
-![pong](https://github.com/taldatech/pytorch-ls-dqn/blob/master/images/pong.gif)
+![dino run](https://github.com/Gal-Kinberg/DeepDinoRun/blob/revert_checks/dino_run.gif)
 
 
 - [Deep Dino Run](#Deep Dino Run)
