@@ -197,7 +197,7 @@ while True:
         scores.append(score)  # save current game score
         iterations.append(t_total)  # save current number of iterations
         print(
-            f' |||| Game: {game_state.games_num} || Score: {score} || Max Score: {np.max(scores)} || Mean of last 10 games: {np.mean(scores[np.max([0, game_state.games_num - 10]):]):.2f} || Epsilon: {epsilon:.2f} || Time: {t_total} || Avarage Framerate: {framerate:.2f} ||||')
+            f' |||| Game: {game_state.games_num} || Score: {score} || Max Score: {np.max(scores)} || Mean of last 10 games: {np.mean(scores[np.max([0, game_state.games_num - 10]):]):.2f} || Epsilon: {epsilon:.2f} || Time: {t_total} || Average Framerate: {framerate:.2f} ||||')
         # print(f'Max Score: {np.max(scores)}')
         # print(f'Mean of last 10 games: {np.mean(scores[np.max([0, game_state.games_num-10]):]):.2f}')
         # print(f'Epsilon: {epsilon:.2f}')
