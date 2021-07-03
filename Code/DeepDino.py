@@ -309,34 +309,34 @@ def show_img(graphs=False):
             cv2.destroyAllWindows()
             break
 
-class Identity(nn.Module):
-  def __init__(self):
-    super(Identity, self).__init__()
+# class Identity(nn.Module):
+#   def __init__(self):
+#     super(Identity, self).__init__()
+#
+#   def forward(self, x):
+#     return x
 
-  def forward(self, x):
-    return x
-
-class DQN_Conv_Block(nn.Module):
-  def __init__(self):
-    super(DQN_Conv_Block, self).__init__()
-    self.conv_layer = nn.Sequential(
-
-            # TODO: Change to kernel sizes of 3 and no strides?
-            # TODO: Fix dimensions of convolution layers
-            # Conv Block (Feature Extraction)
-            nn.Conv2d(in_channels=img_channels, out_channels=32, kernel_size=8, stride=4),
-            # nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=4, stride=2),
-            # nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, padding=1),
-            # nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.ReLU(inplace=True)
-        )
-
-  def forward(self, x):
-      return self.conv_layer(x)
+# class DQN_Conv_Block(nn.Module):
+#   def __init__(self):
+#     super(DQN_Conv_Block, self).__init__()
+#     self.conv_layer = nn.Sequential(
+#
+#             # TODO: Change to kernel sizes of 3 and no strides?
+#             # TODO: Fix dimensions of convolution layers
+#             # Conv Block (Feature Extraction)
+#             nn.Conv2d(in_channels=img_channels, out_channels=32, kernel_size=8, stride=4),
+#             # nn.MaxPool2d(kernel_size=2, stride=2),
+#             nn.ReLU(inplace=True),
+#             nn.Conv2d(in_channels=32, out_channels=64, kernel_size=4, stride=2),
+#             # nn.MaxPool2d(kernel_size=2, stride=2),
+#             nn.ReLU(inplace=True),
+#             nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, padding=1),
+#             # nn.MaxPool2d(kernel_size=2, stride=2),
+#             nn.ReLU(inplace=True)
+#         )
+#
+#   def forward(self, x):
+#       return self.conv_layer(x)
 # class DQN(nn.Module):
 #     """DQN Network for the Dino Run Game"""
 #

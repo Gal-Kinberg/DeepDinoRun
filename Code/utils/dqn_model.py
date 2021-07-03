@@ -91,3 +91,11 @@ class DuelingDQN(nn.Module):
         q_vals = values + (advantages - advantages.mean())
 
         return q_vals
+
+
+class Identity(nn.Module):
+    def __init__(self):
+        super(Identity, self).__init__()
+
+    def forward(self, x):
+        return x
