@@ -30,7 +30,8 @@ from datetime import datetime
 from Code.config import *
 from Code.utils.dqn_model import DQN, DuelingDQN
 from Code.utils.game import Game
-
+from Code.utils.dino_agent import DinoAgent
+from Code.utils.game_state import GameState
 ### TRAINING PARAMETERS
 # TODO: Move all parameters and hyper-parameters to a config file
 # PARAMETERS
@@ -184,22 +185,22 @@ RUN_NAME = "No Acceleration, Normalized"
 #         return self._game.is_crashed()
 
 ### Dino Agent Class
-class DinoAgent:
-    def __init__(self, game):
-        self._game = game
-        self.jump()  # jump once to start the game
-
-    def jump(self):
-        self._game.press_up()
-
-    def duck(self):
-        self._game.press_down()
-
-    def is_running(self):
-        return self._game.is_playing()
-
-    def is_dead(self):
-        return self._game.is_crashed()
+# class DinoAgent:
+#     def __init__(self, game):
+#         self._game = game
+#         self.jump()  # jump once to start the game
+#
+#     def jump(self):
+#         self._game.press_up()
+#
+#     def duck(self):
+#         self._game.press_down()
+#
+#     def is_running(self):
+#         return self._game.is_playing()
+#
+#     def is_dead(self):
+#         return self._game.is_crashed()
 
 # TODO: Change this to a class property
 games_num = 0
@@ -235,45 +236,45 @@ games_num = 0
 #         return torch.from_numpy(image), reward, is_over  # convert picture to Tensor
 
 ### Game-State Class
-class GameState:
-
-    def __init__(self, agent, game):
-        self._game = game
-        self._agent = agent
-        self.games_num = 0
-        # self.display = show_img() #display the processed image on screen using openCV, implemented using python coroutine
-        # self.display.__next__() # initiliaze the display coroutine
-        # -- create display for images
-
-    def get_state(self, actions):
-        score = self._game.get_score()
-        image = self._game.get_screen()
-        # -- display the image
-        # self.display.send(image) #display the image on screen
-        if not (self._agent.is_dead()):
-            reward = 0.1  # survival reward
-            is_over = False
-            if actions[1] == 1:
-                self._agent.jump()
-                # TODO: Remove jumping penalty?
-                if PENALTY:
-                    reward = 0.0  # jumping is expensive
-            elif ACTIONS == 3 and actions[2] == 1:
-                self._agent.duck()
-        else:
-            # -- save the score
-            self.games_num += 1
-            # print("Game Number: ", self.games_num)
-            reward = -1  # punishment for dying
-            is_over = True
-            self._game.restart()
-        return torch.from_numpy(image), reward, is_over, score  # convert picture to Tensor
-
-    def pause_game(self):
-        self._game.pause()
-
-    def resume_game(self):
-        self._game.resume()
+# class GameState:
+#
+#     def __init__(self, agent, game):
+#         self._game = game
+#         self._agent = agent
+#         self.games_num = 0
+#         # self.display = show_img() #display the processed image on screen using openCV, implemented using python coroutine
+#         # self.display.__next__() # initiliaze the display coroutine
+#         # -- create display for images
+#
+#     def get_state(self, actions):
+#         score = self._game.get_score()
+#         image = self._game.get_screen()
+#         # -- display the image
+#         # self.display.send(image) #display the image on screen
+#         if not (self._agent.is_dead()):
+#             reward = 0.1  # survival reward
+#             is_over = False
+#             if actions[1] == 1:
+#                 self._agent.jump()
+#                 # TODO: Remove jumping penalty?
+#                 if PENALTY:
+#                     reward = 0.0  # jumping is expensive
+#             elif ACTIONS == 3 and actions[2] == 1:
+#                 self._agent.duck()
+#         else:
+#             # -- save the score
+#             self.games_num += 1
+#             # print("Game Number: ", self.games_num)
+#             reward = -1  # punishment for dying
+#             is_over = True
+#             self._game.restart()
+#         return torch.from_numpy(image), reward, is_over, score  # convert picture to Tensor
+#
+#     def pause_game(self):
+#         self._game.pause()
+#
+#     def resume_game(self):
+#         self._game.resume()
 
 # # TODO: better processing
 # def process_img(image):
