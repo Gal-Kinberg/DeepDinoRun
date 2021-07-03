@@ -23,15 +23,17 @@ REPLAY_MEMORY = 50000  # number of memories to keep
 img_channels = 4  # stacking 4 images together
 
 # Training Hyper-parameters
-ACCELERATE = False
+ACCELERATE = False  # defines if game is accelerating
 PENALTY = False
-use_pretrained = True
-CHECKPOINT_TIME = 10
+use_pretrained = True  # flag for usage of pretrained model
+CHECKPOINT_TIME = 10  # games interval between two checkpoints
 DELAY_TIME = 0.02
 MODEL_NAME = "dueling dqn"
-FEATURE_EXTRACT = True
+FEATURE_EXTRACT = True  # flag for feature extraction if using pretrained model
 BATCH = 64  # training batch size
 FRAME_PER_ACTION = 1  # TODO: Change to 4 frames per action?
-LEARNING_RATE = 4e-5
+LEARNING_RATE = 4e-5  # learning rate hyperparameter
 GAMMA = 0.99  # decay rate of past observations
 RUN_NAME = "No Acceleration, Normalized"
+SAVE_PATH = "C:/Users/arifr/PycharmProjects/DeepDinoRun/Code/agent_checkpoint"  # path of checkpoint
+CHECKPOINT_NAME = ""  # name of checkpoint file for starting point
