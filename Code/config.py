@@ -26,7 +26,7 @@ img_channels = 4  # stacking 4 images together
 ACCELERATE = False
 PENALTY = False
 use_pretrained = True
-CHECKPOINT_TIME = 100
+CHECKPOINT_TIME = 10
 DELAY_TIME = 0.02
 MODEL_NAME = "dueling dqn"
 FEATURE_EXTRACT = True
@@ -34,5 +34,4 @@ BATCH = 64  # training batch size
 FRAME_PER_ACTION = 1  # TODO: Change to 4 frames per action?
 LEARNING_RATE = 4e-5
 GAMMA = 0.99  # decay rate of past observations
-
 RUN_NAME = "No Acceleration, Normalized"

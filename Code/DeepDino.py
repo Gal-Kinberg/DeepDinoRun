@@ -224,10 +224,10 @@ def train_network(model, model_name, game_state, device, criterion, optimizer, o
                 # TODO: Save learning rate scheduler state_dict()
 
             }
-            if not os.path.isdir('/content/drive/MyDrive/Deep_Learning/DeepDinoAri/DeepDinoRun/checkpoints'):
-                os.mkdir('/content/drive/MyDrive/Deep_Learning/DeepDinoAri/DeepDinoRun/checkpoints')
+            if not os.path.isdir(f'C:/Users/arifr/PycharmProjects/DeepDinoRun/Code/agent_checkpoint'):
+                os.mkdir('./Code/agent_checkpoint')
             torch.save(state,
-                       f'/content/drive/MyDrive/Deep_Learning/DeepDinoAri/DeepDinoRun/checkpoints/{model_name}_{game_state.games_num}_games_{date_time}.pth')
+                       f'C:/Users/arifr/PycharmProjects/DeepDinoRun/Code/agent_checkpoint/{model_name}_{game_state.games_num}_games_{date_time}.pth')
 
         t_total += 1
         time.sleep(DELAY_TIME)
