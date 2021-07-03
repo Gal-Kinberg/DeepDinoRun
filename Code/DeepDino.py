@@ -32,40 +32,6 @@ from Code.utils.dqn_model import DQN, DuelingDQN
 from Code.utils.game import Game
 from Code.utils.dino_agent import DinoAgent
 from Code.utils.game_state import GameState
-### TRAINING PARAMETERS
-# TODO: Move all parameters and hyper-parameters to a config file
-# PARAMETERS
-CHECKPOINT = False
-ACTIONS = 2  # nop, jump, duck
-ONLY_OBSERVE = False
-OBSERVATION = 600  # timesteps to observe before training
-TRAIN = 300
-EXPLORE = 100_000  # time boundary for modifying epsilon
-INITIAL_OBSERVE = 5000
-INITIAL_EPSILON = 0.5
-FINAL_EPSILON = 0.001  # TODO: use a PyTorch scheduler for epsilon? Cosine?
-REPLAY_MEMORY = 50000  # number of memories to keep
-img_channels = 4  # stacking 4 images together
-
-# Training Hyper-parameters
-ACCELERATE = False
-PENALTY = False
-use_pretrained = True
-CHECKPOINT_TIME = 100
-DELAY_TIME = 0.02
-MODEL_NAME = "dueling dqn"
-FEATURE_EXTRACT = True
-BATCH = 64  # training batch size
-FRAME_PER_ACTION = 1  # TODO: Change to 4 frames per action?
-LEARNING_RATE = 4e-5
-GAMMA = 0.99  # decay rate of past observations
-
-RUN_NAME = "No Acceleration, Normalized"
-
-
-# TODO: Change this to a class property
-games_num = 0
-
 
 
 def show_img(graphs=False):
@@ -84,12 +50,13 @@ def show_img(graphs=False):
 
 
 def set_parameter_requires_grad(model, feature_extracting=False):
-  if feature_extracting:
-    for param in model.parameters():
-      param.requires_grad = False
-  else:
-    for param in model.parameters():
-      param.requires_grad = True
+    if feature_extracting:
+        for param in model.parameters():
+            param.requires_grad = False
+    else:
+        for param in model.parameters():
+            param.requires_grad = True
+
 
 def initialize_model(model_name, num_classes, feature_extract, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
@@ -102,7 +69,6 @@ def initialize_model(model_name, num_classes, feature_extract, use_pretrained=Tr
         """
         model_ft = ResNetDQN(ACTIONS)
         input_size = 224
-
 
     elif model_name == "vgg":
         """ VGG16
@@ -121,17 +87,15 @@ def initialize_model(model_name, num_classes, feature_extract, use_pretrained=Tr
         model_ft = DuelingDQN(num_classes)
         input_size = 80
 
-    elif mode_name == "dueling resnet":
+    elif model_name == "dueling resnet":
         model_ft = DuelingResent(num_classes)
         input_size = 224
         set_parameter_requires_grad(model_ft.conv_layer, feature_extracting=True)
-
 
     else:
         raise NotImplementedError
 
     return model_ft, input_size
-
 
 
 ### Main Training Function
@@ -342,15 +306,10 @@ def train_network(model, model_name, game_state, device, criterion, optimizer, o
             # game_state.resume_game()
 
 
-
-
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 criterion = nn.MSELoss()
 model, image_size = initialize_model(MODEL_NAME, ACTIONS, FEATURE_EXTRACT, use_pretrained)
 model = model.to(device)
-# for param in model.fc_layer.parameters():
-#   print(param.requires_grad)
-# print(f'model: {model}')
 optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
 # TODO: Add learning rate scheduler
 game = Game(image_size)
@@ -360,7 +319,6 @@ print("Dino Agent Created")
 game_state = GameState(dino, game)
 print("Game State Created")
 
-# model_name = MODEL_NAME + " " + RUN_NAME
 last_time = time.time()
 
 # load checkpoint
@@ -484,9 +442,9 @@ while True:
             # TODO: Save learning rate scheduler state_dict()
 
         }
-       # if not os.path.isdir(SAVE_PATH):
-       #     os.mkdir(SAVE_PATH)
-       # torch.save(state, SAVE_PATH + f'/{model_name}_{game_state.games_num}_games_{date_time}.pth')
+    # if not os.path.isdir(SAVE_PATH):
+    #     os.mkdir(SAVE_PATH)
+    # torch.save(state, SAVE_PATH + f'/{model_name}_{game_state.games_num}_games_{date_time}.pth')
 
     t_total += 1
     time.sleep(DELAY_TIME)
