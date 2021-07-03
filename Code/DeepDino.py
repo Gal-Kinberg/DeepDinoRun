@@ -286,13 +286,13 @@ games_num = 0
 #     return image
 
 ### Screen Grabbing and Processing Function
-def process_img(image, image_size):
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # convert to GreyScale
-    image = image[:300, :500]
-    image = cv2.resize(image, (image_size, image_size))
-    # plt.imshow(image, cmap = 'gray')
-    # plt.show()
-    return image
+# def process_img(image, image_size):
+#     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # convert to GreyScale
+#     image = image[:300, :500]
+#     image = cv2.resize(image, (image_size, image_size))
+#     # plt.imshow(image, cmap = 'gray')
+#     # plt.show()
+#     return image
 
 
 def show_img(graphs=False):
