@@ -1,5 +1,5 @@
 # Paths and URLs
-PATH = "C:\Program Files (x86)\chromedriver.exe"
+PATH = "C:\\Users\\arifr\\OneDrive\\Desktop\\chromedriver.exe"
 url1 = "https://chromedino.com"
 url2 = "chrome://dino/"
 loss_file_path = "./model/loss_df.csv"
