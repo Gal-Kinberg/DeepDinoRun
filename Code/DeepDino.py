@@ -84,15 +84,12 @@ def initialize_model(model_name, num_classes, feature_extract, use_pretrained=Tr
     return model_ft, input_size
 
 
-print("here")
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 criterion = nn.MSELoss()
 model, image_size = initialize_model(MODEL_NAME, ACTIONS, FEATURE_EXTRACT, use_pretrained)
 model = model.to(device)
-print("here0")
 optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
 # TODO: Add learning rate scheduler
-print("here1")
 game = Game(image_size)
 print("Game object created")
 dino = DinoAgent(game)
@@ -103,7 +100,7 @@ print("Game State Created")
 last_time = time.time()
 
 # load checkpoint
-if CHECKPOINT:  # TODO: make a more generic loading (check if file exists etc.)
+if CHECKPOINT:
     checkpoint = torch.load(SAVE_PATH + '/' + CHECKPOINT_NAME)
     model.load_state_dict(checkpoint['net'])
     optimizer.load_state_dict(checkpoint['optimizer'])
@@ -114,15 +111,13 @@ if CHECKPOINT:  # TODO: make a more generic loading (check if file exists etc.)
     scores = checkpoint['scores']
     iterations = checkpoint['iterations']
 
-    # TODO: load schedulers
 else:
-    D = deque()  # TODO: Change Replay Memory to enable working with dataloaders?
+    D = deque()
     epsilon = INITIAL_EPSILON
     t_total = 0
     scores = []
     iterations = []
 
-# TODO: Add data augmentations
 # initialise: perform first action and get initial state
 do_nothing = torch.zeros(ACTIONS)
 do_nothing[0] = 1
@@ -134,7 +129,7 @@ x_t, r_0, terminal, score = game_state.get_state(do_nothing)
 s_t = torch.stack((x_t, x_t, x_t, x_t), dim=2)  # 80x80x4
 s_t = s_t.permute(2, 0, 1)  # change the axis such that the channels is the first dimension: 4x80x80
 # reshape to add a fourth dimension
-s_t = s_t.reshape(1, s_t.shape[0], s_t.shape[1], s_t.shape[2])  # 1x4x80x80  // TODOL change to unsqueeze(0)
+s_t = s_t.reshape(1, s_t.shape[0], s_t.shape[1], s_t.shape[2])  # 1x4x80x80
 initial_state = s_t
 
 if ONLY_OBSERVE:  # Load current weights and observe
@@ -150,9 +145,9 @@ while True:
     model.eval()
     running_loss = 0.0
     Q_next_state = 0
-    chosen_action = 0  # TODO: Change this to enable same action over 4 frames?
+    chosen_action = 0
     r_t = 0
-    a_t = torch.zeros(ACTIONS)  # TODO: Change this to enable same action over 4 frames?
+    a_t = torch.zeros(ACTIONS)
     # chose an epsilon greedy action
     if t % FRAME_PER_ACTION == 0:
         if random.random() <= epsilon:
@@ -220,7 +215,6 @@ while True:
             'frames per action': FRAME_PER_ACTION,
             'ACCELERATE': ACCELERATE,
             'Penalty': PENALTY
-            # TODO: Save learning rate scheduler state_dict()
 
         }
         if not os.path.isdir(SAVE_PATH):
@@ -239,7 +233,6 @@ while True:
         for episode in range(TRAIN):
             print(f"---- Entering Training Episode {episode} ----")
             # sample a random training batch
-            # TODO: Add Prioritized Replay
             train_batch = random.sample(D, BATCH)
             # inputs = torch.zeros((BATCH, s_t.shape[1], s_t.shape[2], s_t.shape[3]))  # 32 x 4 x 80 x 80
             targets = torch.zeros(BATCH)  # 32 x 1
@@ -274,12 +267,9 @@ while True:
 
                     state_t = augmentations(state_t)
 
-                # inputs[i:i + 1] = state_t.to(device, dtype=torch.float32)  # TODO: make sure this really loads to the device
-
                 model_predictions = model(state_t.to(device, dtype=torch.float32))  # predicted q values for all actions
 
                 predicted[i] = model_predictions[0, action_t]  # prediction for the chosen action
-                # TODO: Detach the values for the Q_next_state?? no grad on this value?
 
                 Q_next_state = model(
                     state_next.to(device, dtype=torch.float32)).detach()  # predicted q values for next state
@@ -289,14 +279,12 @@ while True:
                 else:
                     targets[i] = reward_t + GAMMA * torch.max(Q_next_state)
 
-            # toc_forward = time.time()
-            # print(f'forward time: {toc_forward - tic_forward}')
             targets = targets.to(device, dtype=torch.float32)
             predicted = predicted.to(device, dtype=torch.float32)
 
             # train using targets and inputs, get loss
             tic_loss = time.time()
-            loss = criterion(predicted, targets)  # TODO: Train only on the chosen action, that we know the reward for?
+            loss = criterion(predicted, targets)
             toc_loss = time.time()
             optimizer.zero_grad()
             toc_zero_grad = time.time()
@@ -304,16 +292,10 @@ while True:
             toc_backward = time.time()
             optimizer.step()
             toc_step = time.time()
-            # print(f"loss time: {toc_loss - tic_loss}, zero grad time: {toc_zero_grad - toc_loss}, loss.backward time: { toc_backward - toc_zero_grad}, steip time: {toc_step - toc_backward}")
 
-            running_loss += loss.data.item()  # TODO: Add some normalization?
+            running_loss += loss.data.item()
 
-            # reset observation counter
-            # if t > OBSERVE + TRAIN:
-            #     t = 0
-            # print("---- Finished Training Episode ----")
-
-        # reset time counter
+            # reset time counter
         t = 0
         # resume the game
         game_state.resume_game()

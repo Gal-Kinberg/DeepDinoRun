@@ -14,11 +14,10 @@ Daan Wierstra, Martin Riedmiller [Playing Atari with Deep Reinforcement Learning
   * [Background](#background)
   * [Prerequisites](#prerequisites)
   * [Files in the repository](#files-in-the-repository)
-  * [Playing Atari on Windows](#playing-atari-on-windows)
   * [References](#references)
 
 ## Background
-The idea of this algorithm i
+The main goal of this project was to combine the Deep Learning concepts taught in the course with Reinforcement Learning (RL) methods, in order to teach a neural network to play Chrome’s Dino Run game directly from input pixels of the screen. The secondary goal was to compare the performance of different Deep Reinforcement Learning (DRL) architectures and methods on this task: DQN, dueling DQN, and data augmentations.
 
 ## Prerequisites
 |Library         | Version |
@@ -33,12 +32,11 @@ The idea of this algorithm i
 
 |File name         | Purpsoe |
 |----------------------|------|
-|`DeepDino.py`| general purpose main application for training/playing a LS-DQN agent|
-|`dqn_model.py`| main application tailored for Atari's Pong|
-|`game.py`| main application tailored for Atari's Boxing|
-|`game_state.py`| sample code for playing a game, also in `ls_dqn_main.py`|
-|`config.py`| classes for actions selection (argmax, epsilon greedy)|
-|`dino_agent.py`| agent class, holds the network, action selector and current state|
+|`DeepDino.py`| main application for training/playing a DQN agent|
+|`game.py`| interaction with the game|
+|`game_state.py`|holds the agent and the game, returns current state|
+|`config.py`| contains paths and urls, hyperparameters, training settings|
+|`dino_agent.py`| agent class|
 |`dqn_model.py`| DQN classes, neural networks structures|
 |`*.pth`| Checkpoint files for the Agents (playing/continual learning)|
 

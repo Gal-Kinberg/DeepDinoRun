@@ -12,16 +12,13 @@ from Code.config import *
 
 class Game:
     def __init__(self, image_size):
-        print("here2")
         chrome_options = Options()
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
-        print("here3")
         self.driver = webdriver.Chrome(PATH, chrome_options=chrome_options)
-        print("here4")
+        print("Loading Game")
         self.driver.set_window_position(x=-10, y=0)
-        print("here5")
         self.driver.get(url1)
         print('Game Loaded')
         time.sleep(0.5)

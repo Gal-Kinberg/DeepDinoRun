@@ -7,21 +7,15 @@ class GameState:
         self._game = game
         self._agent = agent
         self.games_num = 0
-        # self.display = show_img() #display the processed image on screen using openCV, implemented using python coroutine
-        # self.display.__next__() # initiliaze the display coroutine
-        # -- create display for images
 
     def get_state(self, actions):
         score = self._game.get_score()
         image = self._game.get_screen()
-        # -- display the image
-        # self.display.send(image) #display the image on screen
         if not (self._agent.is_dead()):
             reward = 0.1  # survival reward
             is_over = False
             if actions[1] == 1:
                 self._agent.jump()
-                # TODO: Remove jumping penalty?
                 if PENALTY:
                     reward = 0.0  # jumping is expensive
             elif ACTIONS == 3 and actions[2] == 1:

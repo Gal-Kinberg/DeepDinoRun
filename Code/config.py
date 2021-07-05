@@ -18,7 +18,7 @@ TRAIN = 300
 EXPLORE = 100_000  # time boundary for modifying epsilon
 INITIAL_OBSERVE = 5000
 INITIAL_EPSILON = 0.5
-FINAL_EPSILON = 0.001  # TODO: use a PyTorch scheduler for epsilon? Cosine?
+FINAL_EPSILON = 0.001
 REPLAY_MEMORY = 50000  # number of memories to keep
 img_channels = 4  # stacking 4 images together
 
@@ -26,12 +26,12 @@ img_channels = 4  # stacking 4 images together
 ACCELERATE = False  # defines if game is accelerating
 PENALTY = False
 use_pretrained = True  # flag for usage of pretrained model
-CHECKPOINT_TIME = 10  # games interval between two checkpoints
+CHECKPOINT_TIME = 500  # games interval between two checkpoints
 DELAY_TIME = 0.02
 MODEL_NAME = "dueling dqn"
 FEATURE_EXTRACT = True  # flag for feature extraction if using pretrained model
 BATCH = 64  # training batch size
-FRAME_PER_ACTION = 1  # TODO: Change to 4 frames per action?
+FRAME_PER_ACTION = 1
 
 LEARNING_RATE = 4e-5  # learning rate hyperparameter
 GAMMA = 0.99  # decay rate of past observations
