@@ -28,7 +28,6 @@ The idea of this algorithm i
 |`selenium`|  `3.141.0`|
 |`Pillow`|  `8.3.0`|
 |`torchvision`|  `0.10.0`|
-|`matploitlib`|  `3.4.2`|
 
 ## Files in the repository
 

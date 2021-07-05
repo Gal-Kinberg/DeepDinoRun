@@ -32,8 +32,13 @@ MODEL_NAME = "dueling dqn"
 FEATURE_EXTRACT = True  # flag for feature extraction if using pretrained model
 BATCH = 64  # training batch size
 FRAME_PER_ACTION = 1  # TODO: Change to 4 frames per action?
+
 LEARNING_RATE = 4e-5  # learning rate hyperparameter
 GAMMA = 0.99  # decay rate of past observations
 RUN_NAME = "No Acceleration, Normalized"
 SAVE_PATH = "C:/Users/arifr/PycharmProjects/DeepDinoRun/Code/agent_checkpoint"  # path of checkpoint
 CHECKPOINT_NAME = ""  # name of checkpoint file for starting point
+
+# data augmentations
+RANDOM_CROP = True
+RANDOM_ERASING = False

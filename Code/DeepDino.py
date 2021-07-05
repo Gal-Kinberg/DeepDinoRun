@@ -1,29 +1,15 @@
-# Selenium Imports
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
-
 # PyTorch Imports
 import torch
 from torch import nn
-from torchvision import models
+from torchvision import models, transforms
 
 # Python Imports
 import time
 import random
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib
 import os
 from collections import deque
-
-# Extra Imports
-from io import BytesIO
-import base64
-import pickle
-import json
 import cv2
-from PIL import Image
 from datetime import datetime
 
 # Import config for paths and scripts
@@ -98,12 +84,15 @@ def initialize_model(model_name, num_classes, feature_extract, use_pretrained=Tr
     return model_ft, input_size
 
 
+print("here")
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 criterion = nn.MSELoss()
 model, image_size = initialize_model(MODEL_NAME, ACTIONS, FEATURE_EXTRACT, use_pretrained)
 model = model.to(device)
+print("here0")
 optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
 # TODO: Add learning rate scheduler
+print("here1")
 game = Game(image_size)
 print("Game object created")
 dino = DinoAgent(game)
@@ -267,6 +256,23 @@ while True:
                 reward_t = train_batch[i][2]
                 state_next = train_batch[i][3]
                 terminal = train_batch[i][4]
+
+                if RANDOM_CROP:
+                    augmentations = transforms.Compose([
+                        # transforms.ToTensor(),
+                        transforms.RandomResizedCrop(size=game_state._game.image_size, scale=(0.9, 1.0),
+                                                     ratio=(1.0, 1.0))
+                    ])
+
+                    state_t = augmentations(state_t)
+
+                if RANDOM_ERASING:
+                    augmentations = transforms.Compose([
+                        # transforms.ToTensor(),
+                        transforms.RandomErasing(p=0.5, scale=(0.05, 0.2), ratio=(0.3, 3.3))
+                    ])
+
+                    state_t = augmentations(state_t)
 
                 # inputs[i:i + 1] = state_t.to(device, dtype=torch.float32)  # TODO: make sure this really loads to the device
 
