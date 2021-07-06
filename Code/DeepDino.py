@@ -89,7 +89,6 @@ criterion = nn.MSELoss()
 model, image_size = initialize_model(MODEL_NAME, ACTIONS, FEATURE_EXTRACT, use_pretrained)
 model = model.to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
-# TODO: Add learning rate scheduler
 game = Game(image_size)
 print("Game object created")
 dino = DinoAgent(game)

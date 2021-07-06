@@ -8,8 +8,7 @@ class DQN_Conv_Block(nn.Module):
         super(DQN_Conv_Block, self).__init__()
         self.conv_layer = nn.Sequential(
 
-            # TODO: Change to kernel sizes of 3 and no strides?
-            # TODO: Fix dimensions of convolution layers
+
             # Conv Block (Feature Extraction)
             nn.Conv2d(in_channels=img_channels, out_channels=32, kernel_size=8, stride=4),
             # nn.MaxPool2d(kernel_size=2, stride=2),

@@ -43,7 +43,6 @@ class Game:
         score = ''.join(score_array)
         return int(score)
 
-    # TODO: Make screen grabbing better
     def get_screen(self):
         image_b64 = self.driver.execute_script(getScreenScript)
         screen = np.array(Image.open(BytesIO(base64.b64decode(image_b64))))
