@@ -41,6 +41,6 @@ The main goal of this project was to combine the Deep Learning concepts taught i
 |`*.pth`| Checkpoint files for the Agents (playing/continual learning)|
 
 ## References
-* 
+* Ravi Munde [Build an AI to play Dino Run](https://blog.paperspace.com/dino-run/)
 * Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Alex Graves, Ioannis Antonoglou,
 Daan Wierstra, Martin Riedmiller [Playing Atari with Deep Reinforcement Learning](https://arxiv.org/pdf/1312.5602.pdf), NIPS 2013

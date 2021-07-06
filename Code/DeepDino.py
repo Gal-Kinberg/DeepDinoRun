@@ -20,63 +20,19 @@ from Code.utils.dino_agent import DinoAgent
 from Code.utils.game_state import GameState
 
 
-def show_img(graphs=False):
-    """
-    Show images in new window
-    """
-    while True:
-        screen = (yield)
-        window_title = "logs" if graphs else "game_play"
-        cv2.namedWindow(window_title, cv2.WINDOW_NORMAL)
-        imS = cv2.resize(screen, (800, 400))
-        cv2.imshow(window_title, screen)
-        if (cv2.waitKey(1) & 0xFF == ord('q')):
-            cv2.destroyAllWindows()
-            break
-
-
-def set_parameter_requires_grad(model, feature_extracting=False):
-    if feature_extracting:
-        for param in model.parameters():
-            param.requires_grad = False
-    else:
-        for param in model.parameters():
-            param.requires_grad = True
-
-
 def initialize_model(model_name, num_classes, feature_extract, use_pretrained=True):
     # Initialize these variables which will be set in this if statement. Each of these
     #   variables is model specific.
     model_ft = None
     input_size = 0  # image size, e.g. (3, 224, 224)
 
-    if model_name == "resnet":
-        """ Resnet50
-        """
-        model_ft = ResNetDQN(ACTIONS)
-        input_size = 224
-
-    elif model_name == "vgg":
-        """ VGG16
-        """
-        model_ft = models.vgg16(pretrained=use_pretrained)
-        set_parameter_requires_grad(model_ft, feature_extract)
-        num_ftrs = model_ft.classifier[6].in_features
-        model_ft.classifier[6] = nn.Linear(num_ftrs, num_classes)
-        input_size = 224
-
-    elif model_name == "dqn":
+    if model_name == "dqn":
         model_ft = DQN(num_classes)
         input_size = 80
 
     elif model_name == "dueling dqn":
         model_ft = DuelingDQN(num_classes)
         input_size = 80
-
-    elif model_name == "dueling resnet":
-        model_ft = DuelingResent(num_classes)
-        input_size = 224
-        set_parameter_requires_grad(model_ft.conv_layer, feature_extracting=True)
 
     else:
         raise NotImplementedError
